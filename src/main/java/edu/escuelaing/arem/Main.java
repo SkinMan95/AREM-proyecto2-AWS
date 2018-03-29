@@ -1,5 +1,3 @@
-/*
- */
 package edu.escuelaing.arem;
 
 import org.springframework.boot.SpringApplication;

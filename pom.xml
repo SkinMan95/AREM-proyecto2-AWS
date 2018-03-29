@@ -12,7 +12,7 @@
         <version>2.0.0.RELEASE</version>
         <relativePath/>
     </parent>
-    <name>arem-proyecto2</name>
+    <name>arem-proyecto2-aws</name>
 
     <properties>
         <java.version>1.8</java.version>
