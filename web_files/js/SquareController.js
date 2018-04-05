@@ -9,7 +9,7 @@ var SquareModule = (function () {
 
     var init = function () {
 	$('#squareButton').click(function (){
-	    var inputNumber = Number($('#tnum').val());
+	    var inputNumber = $('#tnum').val();
 	    console.log('inputNumber:', inputNumber);
 	    getSquare(inputNumber);
 	});
