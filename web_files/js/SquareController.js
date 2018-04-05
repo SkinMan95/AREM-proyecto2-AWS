@@ -13,6 +13,8 @@ var SquareModule = (function () {
 	    console.log('inputNumber:', inputNumber);
 	    getSquare(inputNumber);
 	});
+
+	$('#cnum').attr('disabled', true);
 	console.log('Configuracion Inicial Efectuada.');
     };
     
