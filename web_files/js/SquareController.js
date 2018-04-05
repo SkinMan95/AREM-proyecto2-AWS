@@ -19,7 +19,7 @@ var SquareModule = (function () {
     var getSquare = function (number) {
 	console.log('Entra al then');
 	console.log('number:', number);
-	axios.get(DEFAULT_ADDRESS + '/square?value=' + number)
+	axios.get(DEFAULT_ADDRESS + '/square.do?value=' + number)
 	    .then(function (payload) {
 		displayAnswer(payload.data);
 	    })
