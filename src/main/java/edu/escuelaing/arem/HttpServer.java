@@ -1,7 +1,6 @@
 package edu.escuelaing.arem;
 
 import edu.escuelaing.arem.requesters.Requester;
-import edu.escuelaing.arem.requesters.SquareRequester;
 import java.net.*;
 import java.io.*;
 import java.util.Arrays;
@@ -33,7 +32,6 @@ public class HttpServer {
         }
 
         filesCache = new HashMap<>();
-        generateRequesters();
         generateResponders();
 
         ServerSocket serverSocket = null;
@@ -174,20 +172,27 @@ public class HttpServer {
         }
     }
 
-    private static Map<String, Requester> requesters;
-
-    private static void generateRequesters() {
-        requesters = new HashMap<>();
-        requesters.put("square", new SquareRequester());
+    private static Requester getRequesterByName(String name) {
+        Requester r = null;
+        try {
+            String convertedName = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase() + "Requester"; // Capitalize as NameRequester
+            Object p = Class.forName("edu.escuelaing.arem.requesters." + convertedName).newInstance();
+            r = (Requester) p;
+        } catch (Exception ex) {
+            System.err.println("Error generating Requester \"" + name + "\": " + ex);
+        }
+        
+        return r;
     }
 
     public static void loadAndExecuteRequest(String className, String[] arguments, OutputStream out) {
         PrintWriter o = new PrintWriter(out, true);
-        if (requesters.containsKey(className)) {
+        Requester r = getRequesterByName(className);
+        if (r != null) {
             o.println("HTTP/1.1 200 \r\n"
                     + "Content-Type: raw ;charset=UTF-8\r\n"
                     + "\r\n"
-                    + requesters.get(className).request(arguments));
+                    + r.request(arguments));
         } else {
             o.println("HTTP/1.1 400 \r\n"
                     + "\r\n");
